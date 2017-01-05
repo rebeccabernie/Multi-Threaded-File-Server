@@ -1,0 +1,12 @@
+package ie.gmit.sw.client.config;
+
+public abstract class ClientConfig implements Runnable {
+
+	private Socket clientSocket;
+    private BufferedReader in = null;
+
+    public ClientConfig(Socket client) {
+        this.clientSocket = client;
+    }
+	
+}

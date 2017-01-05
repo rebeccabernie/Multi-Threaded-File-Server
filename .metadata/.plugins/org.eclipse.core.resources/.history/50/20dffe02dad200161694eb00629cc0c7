@@ -1,0 +1,10 @@
+//G00320698 - Rebecca Kane
+package ie.gmit.sw;
+
+import java.util.*;
+
+// to avoid confusion in the project spec pdf...
+
+public class Client {
+
+}
