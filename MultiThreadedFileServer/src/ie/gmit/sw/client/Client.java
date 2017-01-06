@@ -21,14 +21,7 @@ public class Client {
 	public static void main(String[] args) throws Throwable {
 
 		Client client = new Client();
-		client.run();		
-
-		// Menu 
-		System.out.println("1: Connect to Server");
-		System.out.println("2: Print File Listing");
-		System.out.println("3: Download File");
-		System.out.println("4: Quit");
-		choice = console.nextInt();
+		client.run();
 
 	} // end main
 	
@@ -39,6 +32,13 @@ public class Client {
 	
 	public void run() throws Throwable {
 		
+		// Menu 
+		System.out.println("1: Connect to Server");
+		System.out.println("2: Print File Listing");
+		System.out.println("3: Download File");
+		System.out.println("4: Quit");
+		choice = console.nextInt();
+		
 		// While loop specified in project spec
 		while(choice != 4){
 			
@@ -47,7 +47,17 @@ public class Client {
 				try { 
 					socket = new Socket("localhost", PORT);
 					System.out.println("Socket started on " + PORT); // Just confirmation to the user
-						
+					
+					//Serialise / marshal a request to the server
+					ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+					out.writeObject(request); //Serialise
+					out.flush(); //Ensure all data sent by flushing buffers
+					
+					//Deserialise / unmarshal response from server 
+					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+					String response = (String) in.readObject(); //Deserialise
+					
+					choice = 0;
 				} catch (IOException e) { // In case something goes wrong 
 					System.out.println("Error - " + e.getMessage());
 				}
@@ -57,10 +67,12 @@ public class Client {
 				// List of Files available to download
 				System.out.println("Files Available for Download:");
 				//list of files here...
+				choice = 0;
 			} // End choice 2
 			
 			else if(choice == 3){
 				//downloadFile(); // run download file method...
+				choice = 0;
 			} // End choice 3
 			
 			else if(choice == 4){
@@ -73,7 +85,7 @@ public class Client {
 			
 			else{ // just in case user tries an invalid option
 				System.out.println("Please enter a valid option...");
-				choice = console.nextInt(); // Allow user to enter an option after error displayed
+				choice = console.nextInt(); // Allow user to enter an option again
 			}
 			
 		} // End while

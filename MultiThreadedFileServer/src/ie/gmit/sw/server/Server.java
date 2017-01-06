@@ -13,7 +13,7 @@ public class Server {
 	private static final int PORT = 7777;  
 	private volatile boolean keepRunning = true;
 	
-	private Server() // private because 
+	private Server() // private because doesn't need to be accessed in future
 	{
 		try 
 		{ 
@@ -35,7 +35,7 @@ public class Server {
 		new Server(); // Create instance of a Server
 	}
 	
-	private class Listener implements Runnable{ //A Listener IS-A Runnable
+	private class Listener implements Runnable{ // Listener "IS-A" Runnable
 		
 		public void run() { // run() must be implemented
 			
