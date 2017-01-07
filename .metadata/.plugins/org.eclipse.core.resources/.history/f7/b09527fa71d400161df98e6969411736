@@ -1,0 +1,113 @@
+// G00320698 - Rebecca Kane
+package ie.gmit.sw.client; // keeping close to project spec...
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.util.logging.*;
+
+public class Client {
+	// Request code from WebClient - Lecture Notes / Practical Resources on moodle
+	// In theory would be text file with list of file names?
+	// final because request won't change
+	private final String request = "GET /characters.txt HTTP/1.1\n\n"; 
+	
+	private static Socket socket;
+	private static final int PORT = 7777; // Specified port in spec
+	private static String fileName; // File for downloading
+	static Scanner console = new Scanner(System.in);
+	private static int choice; // User's choice on menu
+	
+	public static void main(String[] args) throws Throwable {
+
+		Client client = new Client();
+		client.run();
+
+	} // end main
+	
+	// Empty Constructor
+	public Client() {
+		
+	}
+	
+	public void run() throws Throwable {
+		
+		// Menu 
+		System.out.println("1: Connect to Server");
+		System.out.println("2: Print File Listing");
+		System.out.println("3: Download File");
+		System.out.println("4: Quit");
+		choice = console.nextInt();
+		
+		// While loop specified in project spec
+		while(choice != 4){
+			
+			if(choice == 1){
+				// Connect to server
+				try { 
+					socket = new Socket("localhost", PORT);
+					System.out.println("Socket started on " + PORT); // Just confirmation to the user
+					
+					//Serialise / marshal a request to the server
+					ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+					out.writeObject(request); //Serialise
+					out.flush(); //Ensure all data sent by flushing buffers
+					
+					//Deserialise / unmarshal response from server 
+					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+					String response = (String) in.readObject(); //Deserialise
+					
+					choice = 0;
+				} catch (IOException e) { // In case something goes wrong 
+					System.out.println("Error - " + e.getMessage());
+				}
+			} // End choice 1
+			
+			else if(choice == 2){
+				// List of Files available to download
+				System.out.println("Files Available for Download:");
+				//list of files here...
+				
+				List<String> results = new ArrayList<String>();
+
+
+				File[] files = new File("/server/files").listFiles();
+				//If this pathname does not denote a directory, then listFiles() returns null. 
+
+				for (File file : files) {
+				    if (file.isFile()) {
+				        results.add(file.getName());
+				    }
+				}
+				
+				choice = 0;
+			} // End choice 2
+			
+			else if(choice == 3){
+				//downloadFile(); // run download file method...
+				choice = 0;
+			} // End choice 3
+			
+			else if(choice == 4){
+				// End program
+				socket.close(); // Close connection, good practice
+				System.out.println("Connection closed...");
+				
+				System.out.println("Program terminated.");
+			} // End choice 4
+			
+			else if (choice == 0){ // displays at the end of every action/choice
+				System.out.println("Please choose an option from the menu");
+				choice = console.nextInt(); // Allow user to enter an option again
+			}
+			
+			else { // just in case user tries an invalid option
+				System.out.println("Please enter a valid option...");
+				choice = console.nextInt(); // Allow user to enter an option again
+			}
+			
+		} // End while
+	
+	} // End run()
+		
+} // End Client class

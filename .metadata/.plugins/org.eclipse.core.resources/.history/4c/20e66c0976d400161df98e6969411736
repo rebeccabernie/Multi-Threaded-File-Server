@@ -1,0 +1,10 @@
+package ie.gmit.sw.client;
+
+import java.util.Scanner;
+
+public class UserInterface {
+
+	static Scanner console = new Scanner(System.in);
+	private static int choice; // User's choice on menu
+	
+}

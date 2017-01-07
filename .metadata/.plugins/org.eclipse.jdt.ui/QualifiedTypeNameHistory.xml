@@ -4,4 +4,8 @@
 <fullyQualifiedTypeName name="java.net.Socket"/>
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="java.net.ServerSocket"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="ie.gmit.sw.client.UserInterface"/>
+<fullyQualifiedTypeName name="ie.gmit.sw.server.Server"/>
 </qualifiedTypeNameHistroy>

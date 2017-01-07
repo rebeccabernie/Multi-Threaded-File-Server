@@ -1,12 +1,37 @@
 package ie.gmit.sw.client;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Connector {
-
+	
+	private static Socket s;
+	
+	public Connector(){
+		new Thread(new Runnable(){
+			public void run() { 
+				try {
+					s = new Socket("localhost", 7777);
+					
+					System.out.println("Client connected to server...");
+					
+					//s.close();
+					
+				} catch (Exception e) { 
+					System.out.println("Error: " + e.getMessage());
+				}
+			} // End run()
+			
+		}, "Client-").start();
+		
+		} // Close Connector
+	
+	public static void closeConnection() throws Exception{
+		s.close();
+		System.out.println("Server connection closed.");
+	}
+	
+/*
 	private static final String request = "GET /characters.txt HTTP/1.1\n\n"; 
 	
 	private static Socket socket;
@@ -28,7 +53,7 @@ public class Connector {
 				ObjectInputStream in = new ObjectInputStream(getSocket().getInputStream());
 				String response = (String) in.readObject(); //Deserialise
 				
-				UserInterface.setChoice(0);*/
+				UserInterface.setChoice(0);
 			} catch (Exception e) { // In case something goes wrong 
 				System.out.println("Error - " + e.getMessage());
 			}
@@ -49,3 +74,4 @@ public class Connector {
 		}
 	*/
 }
+

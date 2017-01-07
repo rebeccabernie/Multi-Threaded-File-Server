@@ -30,12 +30,13 @@ public class Server {
 		}
 	} // end private Server method
 	
+	/*
 	//A main method is required to start a standard Java application
 	public static void main(String[] args) {
 		new Server(); //Create an instance of a WebServer. This fires the constructor of WebServer() above on the main stack
-	}
+	}*/
 	
-	private class Listener implements Runnable{ // Listener "IS-A" Runnable
+	private class Listener implements Runnable { // Listener "IS-A" Runnable
 		
 		public void run() { // run() must be implemented
 			
@@ -77,7 +78,7 @@ public class Server {
                 out.flush();
                 out.close(); // Good practice to close after use
 */
-            	System.out.println("Complete");
+            	System.out.println("Server connected.");
             } catch (Exception e) { 
             	System.out.println("Error processing request from " + sock.getRemoteSocketAddress());
             	e.printStackTrace();

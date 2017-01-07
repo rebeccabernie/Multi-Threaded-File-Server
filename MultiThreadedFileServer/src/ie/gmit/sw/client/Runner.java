@@ -9,7 +9,7 @@ public class Runner {
 	
 	static Scanner console = new Scanner(System.in);
 	
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	public static void main(String[] args) throws Throwable {
 		
 		//Connector c = new Connector();
 		UserInterface u = new UserInterface();
@@ -24,6 +24,8 @@ public class Runner {
 						// Connect to server
 						Server server = new Server();
 						Connector c = new Connector(); // Create a connection - makes a new instance of the Connector class
+						//c.connect();
+						u.choice = 0;
 					} // End choice 1
 					
 					else if(u.choice == 2){
@@ -40,14 +42,10 @@ public class Runner {
 					else if(u.choice == 4) {
 			
 						// End program
-						//c.close(); // Close connection, good practice
+						Connector.closeConnection(); // Close connection, good practice
 						System.out.println("Connection closed...");
 						
 						System.out.println("Program terminated.");
-				
-						// TODO Auto-generated catch block
-						System.out.println("Error in closing connection - ");
-	
 					} // End choice 4
 					
 					else if (u.choice == 0){ // displays at the end of every action/choice
