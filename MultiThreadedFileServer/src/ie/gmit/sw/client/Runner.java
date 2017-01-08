@@ -19,6 +19,8 @@ public class Runner {
 		XMLParser xmlp = new XMLParser(p);
 		xmlp.init();
 		
+		System.out.println(p);
+		
 		UserInterface u = new UserInterface();
 		Connector c = new Connector();
 		Fileator f = new Fileator(); // Create instance of Fileator class

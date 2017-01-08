@@ -1,0 +1,46 @@
+// G00320698 - Rebecca Kane
+// Fileator class - handles all functionality to do with files - displaying, downloading etc
+
+package ie.gmit.sw.client;
+
+import java.io.*;
+
+public class Fileator {
+	
+	public Fileator(){
+		new Thread(new Runnable(){
+			public void run() { 
+				try {
+					
+				} catch (Exception e) { 
+					System.out.println("Error - " + e.getMessage());
+				}
+			} // End run()
+			
+		}, "Fileator - ").start();
+		
+		} // Close Connector
+	
+	public static void listDownloadableFiles(){
+		// Adapted from 	http://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
+		
+		// Use io.File import - specified in project spec
+		// Use .list() - specified in project spec
+		
+	    File directory = new File("src/ie/gmit/sw/server/files"); // Create a file (really a directory)
+	    File [] files = directory.listFiles(); // Array of files in the directory above
+	    
+	    // Sort the list of files (not *really* needed)
+	    // Arrays.sort(files);
+		
+	    for (int i = 0; i < files.length; i++) {
+		      
+	    	if (files[i].isFile()) // if item is a file, do this
+	    		System.out.println("File Name:  " + files[i].getName());
+	      
+	    	else if (files[i].isDirectory()) // if item is a directory - just in case folder with files contains a sub-directory
+	    		System.out.println("Directory Name: " + files[i].getName());        
+	    }
+	} // End listDownloadableFiles()
+	
+} // End class

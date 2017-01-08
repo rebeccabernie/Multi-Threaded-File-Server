@@ -1,0 +1,8 @@
+// G00320698 - Rebecca Kane
+// Filetor class - handles all functionality to do with files - displaying, downloading etc
+
+package ie.gmit.sw.client;
+
+public class Fileator {
+
+}

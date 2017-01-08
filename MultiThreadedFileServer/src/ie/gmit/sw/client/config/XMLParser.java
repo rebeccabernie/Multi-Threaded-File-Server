@@ -20,29 +20,34 @@ public class XMLParser {
 		NodeList children = root.getChildNodes(); //Get the child node of the root
 	
 		for (int i = 0; i < children.getLength(); i++){ //Loop over the child nodes
-			Node next = children.item(i); //Get the next child
+		
+			Node next = children.item(i); 
 			
-			if (next instanceof Element){ //Check if it is an element node. There are 12 different types of Node
-				Element e = (Element) next; //Cast the general node to an element node
+			if (next instanceof Element){
 				
-				if (e.getNodeName().equals("client-config")){ //Check if it is the element <client-config>
-					NamedNodeMap atts = e.getAttributes(); //Get the attributes as a map of name/value pairs
+				Element e = (Element) next;
+				
+				if (e.getNodeName().equals("client-config")){
 					
-					for (int j = 0; j < atts.getLength(); j++){ //Look over the attributes. This is similar to looping over a ket set in a Map
-						if (atts.item(j).getNodeName().equals("username")){ // 
-							p.setUsername(atts.item(j).getNodeValue()); //Update the p object
-						}
+					NamedNodeMap atts = e.getAttributes();
+					
+					for (int j = 0; j < atts.getLength(); j++){
+						
+						if (atts.item(j).getNodeName().equals("username"))
+							p.setUsername(atts.item(j).getNodeValue());
+
 					}
-					
 				}
+				
 				else if (e.getNodeName().equals("server-host"))
 					p.setHost(e.getFirstChild().getNodeValue());
 				
-				else if (e.getNodeName().equals("server-port"))
+				else if(e.getNodeName().equals("server-port"))
 					p.setPort(Integer.parseInt(e.getFirstChild().getNodeValue()));
-
-				else if (e.getNodeName().equals("download-dir"))
-					p.setDir(e.getFirstChild().getNodeValue());						
+				
+				else if(e.getNodeName().equals("download-dir"))
+					p.setDir(e.getFirstChild().getNodeValue());
+				
 			}
 		}		
 		

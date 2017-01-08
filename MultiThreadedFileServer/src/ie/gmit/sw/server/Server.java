@@ -80,7 +80,8 @@ public class Server {
                 out.flush();
                 out.close(); // Good practice to close after use
 */
-            	System.out.println("Server connected.");
+            	//System.out.println("Server connected."); - displays after the prompt to the user, just commented out to avoid any confusion
+            	System.out.print("");
             } catch (Exception e) { 
             	System.out.println("Error processing request from " + sock.getRemoteSocketAddress());
             	e.printStackTrace();

@@ -40,7 +40,7 @@ public class Parsetor {
 	
 	@Override
 	public String toString() {
-		return "Parsetor [username=" + username + ", host=" + host + ", port=" + port + ", dir=" + dir + "]";
+		return "Parsetor [username = " + username + ", host = " + host + ", port = " + port + ", dir = " + dir + "]";
 	}
 
 }
