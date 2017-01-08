@@ -1,4 +1,5 @@
 // G00320698 - Rebecca Kane
+// Server class - server side functionality
 package ie.gmit.sw.server;
 
 import java.io.*;
@@ -13,7 +14,7 @@ public class Server {
 	private static final int PORT = 7777;  
 	private volatile boolean keepRunning = true;
 	
-	public Server() // private because doesn't need to be accessed in future
+	public Server()
 	{
 		try 
 		{ 
@@ -30,11 +31,12 @@ public class Server {
 		}
 	} // end private Server method
 	
-	/*
+	
 	//A main method is required to start a standard Java application
 	public static void main(String[] args) {
-		new Server(); //Create an instance of a WebServer. This fires the constructor of WebServer() above on the main stack
-	}*/
+		//new Server(); //Create an instance of a WebServer. This fires the constructor of WebServer() above on the main stack
+		System.out.println("Server running...");
+	}
 	
 	private class Listener implements Runnable { // Listener "IS-A" Runnable
 		
