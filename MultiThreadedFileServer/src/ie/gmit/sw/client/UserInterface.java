@@ -7,10 +7,12 @@ public class UserInterface {
 	Scanner console = new Scanner(System.in);
 	public int choice; // User's choice on menu
 	
+	// Empty Constructor
 	public UserInterface(){
-		super();
+
 	}
 	
+	// Getters and Setters for choice
 	public int getChoice() {
 		return choice;
 	}
@@ -20,13 +22,12 @@ public class UserInterface {
 	}
 	
 	// Menu
-	@Override
-	public String toString() {
-		return "1: Connect to Server\n2: Print File Listing\n3: Download File\n4: Quit\nSelect an option [1 - 4]";
+	public void menu() {
+		System.out.println("1: Connect to Server\n2: Print File Listing\n3: Download File\n4: Quit");
 	}
 	
-	// 
-	public int menu(){
+	// User enters choice from menu
+	public int option(){
 		choice = console.nextInt();
 		return choice;
 	}

@@ -1,12 +1,19 @@
 // G00320698 - Rebecca Kane
-// Filetor class - handles all functionality to do with files - displaying, downloading etc
+// Fileator class - handles all functionality to do with files - displaying, downloading etc
 
 package ie.gmit.sw.client;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Fileator {
 	
+	// Use io.File import - specified in project spec
+	// Use .list() - specified in project spec		
+    private static File directory = new File("src/ie/gmit/sw/server/files"); // Create a file (really points to a directory)
+	private static File[] files = directory.listFiles(); // Array of files in the file (directory) above
+	
+	// public Fileator() segment adapted from "WebClient Source Code" (Lecturer John Healy) on moodle
 	public Fileator(){
 		new Thread(new Runnable(){
 			public void run() { 
@@ -19,25 +26,42 @@ public class Fileator {
 			
 		}, "Fileator - ").start();
 		
-		} // Close Connector
+	} // Close Connector
 	
 	public static void listDownloadableFiles(){
-		
-		// http://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
-		File folder = new File("MultiThreadedFileServer/src/ie/gmit/sw/server/files");
-		File[] listOfFiles = folder.listFiles();
-
-		    for (int i = 0; i < listOfFiles.length; i++) {
+	
+	    for (int i = 0; i < files.length; i++) {
 		      
-		    	if (listOfFiles[i].isFile()) { // if item is a file, do this
-		        System.out.println("File - " + listOfFiles[i].getName());
-		      } 
-		      
-		      else if (listOfFiles[i].isDirectory()) { // if item is a directory - just in case folder with files contains a sub-directory
-		        System.out.println("Directory - " + listOfFiles[i].getName());
-		      }
-		    }
-
+	    	if (files[i].isFile()) // if item is a file, do this
+	    		System.out.println("File Name	" + files[i].getName());
+	      
+	    	else if (files[i].isDirectory()) // if item is a directory - just in case folder with files contains a sub-directory
+	    		System.out.println("Directory Name	" + files[i].getName());
+	    }
+	    
 	} // End listDownloadableFiles()
 	
+	public void downloadFile(){
+		
+		Scanner console = new Scanner(System.in);
+
+		System.out.print("Enter file name to download: ");
+		String fileName = console.next();
+		
+		for(int i = 0; i < files.length; i++) {
+			try {
+				if(fileName.equals(files[i].getName())) {
+					System.out.println("File found, downloading...");
+					// do download stuff
+				}
+				else if (fileName != files[i].getName())
+					System.out.print("");
+			
+			}catch(Exception e){  // not displaying error just asks for another input, will fix later 
+				System.out.println("Error, file not found... please enter a valid name");
+				fileName = console.next();
+			}
+				
+		}
+	} // End downloadFile()
 } // End class

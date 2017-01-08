@@ -1,9 +1,13 @@
+// G00320698 - Rebecca Kane
+// Runner class - brings everything together
+
 package ie.gmit.sw.client;
 
-import java.io.IOException;
 import java.util.Scanner;
 
+import ie.gmit.sw.client.config.*;
 import ie.gmit.sw.server.Server;
+
 
 public class Runner {
 	
@@ -11,54 +15,55 @@ public class Runner {
 	
 	public static void main(String[] args) throws Throwable {
 		
-		//Connector c = new Connector();
+		Parsetor p = new Parsetor();
+		XMLParser xmlp = new XMLParser(p);
+		xmlp.init();
+		
 		UserInterface u = new UserInterface();
-		System.out.println(u);
+		Connector c = new Connector();
+		Fileator f = new Fileator(); // Create instance of Fileator class
+
+		u.menu(); // thought outputting the menu once at the start looked less cluttered
+		
 		
 		// While loop specified in project spec
-				while(u.choice != 4){
-					//u.toString(); // Displays menu
-					u.menu();
-					
-					if(u.choice == 1){
-						// Connect to server
-						Server server = new Server();
-						Connector c = new Connector(); // Create a connection - makes a new instance of the Connector class
-						//c.connect();
-						u.choice = 0;
-					} // End choice 1
-					
-					else if(u.choice == 2){
-						// List of Files available to download
-						System.out.println("Files Available for Download:");
-						//list of files here...
-					} // End choice 2
-					
-					else if(u.choice == 3){
-						//downloadFile(); // run download file method...
-						u.choice = 0;
-					} // End choice 3
-					
-					else if(u.choice == 4) {
+		while(u.choice != 4){
 			
-						// End program
-						Connector.closeConnection(); // Close connection, good practice
-						System.out.println("Connection closed...");
-						
-						System.out.println("Program terminated.");
-					} // End choice 4
-					
-					else if (u.choice == 0){ // displays at the end of every action/choice
-						System.out.println("Please choose an option from the menu");
-						u.choice = console.nextInt(); // Allow user to enter an option again
-					}
-					
-					else { // just in case user tries an invalid option
-						System.out.println("Please enter a valid option...");
-						u.choice = console.nextInt(); // Allow user to enter an option again
-					}
-					
-				} // End while
+			System.out.println("\nSelect an option [1 - 4]");
+			u.choice = console.nextInt();
 			
-			} // End run()
-	}
+			if(u.choice == 1){
+				// Connect to server
+				Server server = new Server();
+				c.openConnection();
+			} // End choice 1
+			
+			
+			else if(u.choice == 2){
+				// List of Files available to download
+				System.out.println("Files Available for Download:");				
+				Fileator.listDownloadableFiles();
+				
+			} // End choice 2
+			
+			else if(u.choice == 3){
+				f.downloadFile(); // run download file method...
+				
+			} // End choice 3
+			
+			else if(u.choice == 4) {
+				// End program 					closeConnection should be accessed statically? hence Connector and not c
+				Connector.closeConnection(); // Close connection, good practice
+				System.out.println("Connection closed...\nProgram terminated.");
+			} // End choice 4
+			
+			else { // just in case user tries an invalid option
+				System.out.println("Please enter a valid option...");
+				u.choice = console.nextInt(); // Allow user to enter an option again
+			}
+			
+		} // End while
+		
+	} // End run()
+
+} // End class

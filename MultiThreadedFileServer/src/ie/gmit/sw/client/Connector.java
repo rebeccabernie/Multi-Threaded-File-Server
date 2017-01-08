@@ -1,12 +1,16 @@
+// G00320698 - Rebecca Kane
+// Connector class - handles all functionality to do with connection
+
 package ie.gmit.sw.client;
 
-import java.io.IOException;
 import java.net.Socket;
 
 public class Connector {
 	
 	private static Socket s;
 	
+	/*
+	// public Connector() segment adapted from "WebClient Source Code" (Lecturer John Healy) on moodle
 	public Connector(){
 		new Thread(new Runnable(){
 			public void run() { 
@@ -18,60 +22,31 @@ public class Connector {
 					//s.close();
 					
 				} catch (Exception e) { 
-					System.out.println("Error: " + e.getMessage());
+					System.out.println("Error - " + e.getMessage());
 				}
 			} // End run()
 			
-		}, "Client-").start();
+		}, "Connector - ").start();
 		
-		} // Close Connector
+	} // Close Connector*/
+	
+	public void openConnection() {
+		try {
+			s = new Socket("localhost", 7777);
+			
+			System.out.println("Client connected to server...");
+			
+			//s.close();
+			
+		} catch (Exception e) { 
+			System.out.println("Error - " + e.getMessage());
+		}
+	}
 	
 	public static void closeConnection() throws Exception{
 		s.close();
 		System.out.println("Server connection closed.");
 	}
-	
-/*
-	private static final String request = "GET /characters.txt HTTP/1.1\n\n"; 
-	
-	private static Socket socket;
-	private static final int PORT = 7777; // Specified port in spec
-	
-	// Connect to the server
-		public static void connect() { // For in.readObject();
-			try { 
-				Socket socket = new Socket("localhost", PORT);
-				System.out.println("Socket started on " + PORT); // Just confirmation to the user
-				
-				/*
-				//Serialise / marshal a request to the server
-				ObjectOutputStream out = new ObjectOutputStream(getSocket().getOutputStream());
-				out.writeObject(request); //Serialise
-				out.flush(); //Ensure all data sent by flushing buffers
-				
-				//Deserialise / unmarshal response from server 
-				ObjectInputStream in = new ObjectInputStream(getSocket().getInputStream());
-				String response = (String) in.readObject(); //Deserialise
-				
-				UserInterface.setChoice(0);
-			} catch (Exception e) { // In case something goes wrong 
-				System.out.println("Error - " + e.getMessage());
-			}
-			
-		} // end connect()
 
-		public static void closeConnection() throws IOException{
-			socket.close();
-		}
-		
-		/*
-		public static Socket getSocket() {
-			return socket;
-		}
-
-		public static void setSocket(Socket socket) {
-			Connector.socket = socket;
-		}
-	*/
-}
+} // End class
 
